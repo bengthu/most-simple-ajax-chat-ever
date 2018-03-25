@@ -95,8 +95,20 @@ function rec_response(str1)     { }
 function rec_chatcontent(cont1) {
     if (cont1 != "") {
         out1 = unescape(cont1);
-        if (show_newmsg_on_bottom == 0) { out1 = ""; while (cont1.indexOf("\n") > -1) { out1 = cont1.substr(0, cont1.indexOf("\n")) + "\n" + out1; cont1 = cont1.substr(cont1.indexOf("\n") + 1); out1 = unescape(out1); } }
-        if (chatwindow.value != out1) { display_msg(out1); }
+        if (show_newmsg_on_bottom == 0) { 
+             out1 = ""; 
+             while (cont1.indexOf("\n") > -1) { 
+                  out1 = cont1.substr(0, cont1.indexOf("\n")) + "\n" + out1; 
+                  cont1 = cont1.substr(cont1.indexOf("\n") + 1); out1 = unescape(out1); 
+             } 
+        } else {
+             //if text is at the bottom, scroll to bottom of the textarea
+	         var textarea = document.getElementById('chatwindow');
+	         textarea.scrollTop = textarea.scrollHeight;
+        }
+        if (chatwindow.value != out1) { 
+             display_msg(out1); 
+        }
         intUpdate=window.setTimeout("read_cont()", waittime);
     }
 }
